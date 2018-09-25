@@ -29,8 +29,6 @@ namespace ArduinoDemo
     {
         private RemoteDevice Arduino { get; set; }
         private const string PotPin = "A0";
-        private const int LedPin = 9;
-        private bool IsLedOn { get; set; }
         private string _output = "No output";
 
         public string Output
@@ -81,14 +79,10 @@ namespace ArduinoDemo
         private void Setup()
         {
             Arduino.pinMode(PotPin, PinMode.ANALOG);
-            Arduino.pinMode(LedPin, PinMode.OUTPUT);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            IsLedOn = !IsLedOn;
-            var state = IsLedOn ? PinState.HIGH : PinState.LOW;
-            Arduino.digitalWrite(LedPin, state);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
