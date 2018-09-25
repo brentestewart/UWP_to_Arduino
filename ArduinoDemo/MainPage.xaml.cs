@@ -67,11 +67,7 @@ namespace ArduinoDemo
 
         private async void PotUpdated(string pin, ushort value)
         {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                () =>
-                {
-                   Output = value.ToString();
-                });
+            Output = value.ToString();
         }
 
         private void Failure(string message)
@@ -92,9 +88,13 @@ namespace ArduinoDemo
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        private async void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
+               () =>
+               {
+                   PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+               });
         }
 
     }
