@@ -29,8 +29,6 @@ namespace ArduinoDemo
     {
         private RemoteDevice Arduino { get; set; }
         private const string PotPin = "A0";
-        private const int LedPin = 9;
-        private bool IsLedOn { get; set; }
         private string _output = "No output";
 
         public string Output
@@ -61,17 +59,7 @@ namespace ArduinoDemo
 
             Arduino.DeviceReady += Setup;
             Arduino.DeviceConnectionFailed += Failure;
-            Arduino.AnalogPinUpdated += PotUpdated;
             connection.begin(57600, SerialConfig.SERIAL_8N1);
-        }
-
-        private async void PotUpdated(string pin, ushort value)
-        {
-            await Dispatcher.RunAsync(CoreDispatcherPriority.Normal,
-                () =>
-                {
-                   Output = value.ToString();
-                });
         }
 
         private void Failure(string message)
@@ -81,14 +69,12 @@ namespace ArduinoDemo
         private void Setup()
         {
             Arduino.pinMode(PotPin, PinMode.ANALOG);
-            Arduino.pinMode(LedPin, PinMode.OUTPUT);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            IsLedOn = !IsLedOn;
-            var state = IsLedOn ? PinState.HIGH : PinState.LOW;
-            Arduino.digitalWrite(LedPin, state);
+            var reading = Arduino.analogRead(PotPin);
+            Output = reading.ToString();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -18,7 +18,7 @@
                    FontSize="128" 
                    HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Button Grid.Row="1" 
-                Content="Toggle LED" 
+                Content="Read Potentiometer" 
                 Click="Button_Click" 
                 FontSize="36" FontWeight="Bold"
                 HorizontalAlignment="Stretch"
