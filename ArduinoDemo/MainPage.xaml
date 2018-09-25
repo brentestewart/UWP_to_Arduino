@@ -9,6 +9,19 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" 
+                   Text="{Binding Output}" 
+                   FontSize="128" 
+                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button Grid.Row="1" 
+                Content="Toggle LED" 
+                Click="Button_Click" 
+                FontSize="36" FontWeight="Bold"
+                HorizontalAlignment="Stretch"
+                Padding="20"/>
     </Grid>
 </Page>
